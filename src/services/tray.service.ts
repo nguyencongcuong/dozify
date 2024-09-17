@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu, Tray } from 'electron';
+import { app, BrowserWindow, Menu, nativeTheme, Tray } from 'electron';
 import * as path from 'path';
 import { PowerService } from './power.service';
 import { TimerService } from './timer.service';
@@ -6,10 +6,13 @@ import { TimerService } from './timer.service';
 export class TrayService {
   public static tray: Tray | null = null;
 
+  // https://github.com/electron/electron/blob/main/docs/api/native-image.md#template-image
+  static getTrayIcon() {
+    return path.join(__dirname, 'trayIconTemplate.png');
+  }
+
   static createTray(mainWindow: BrowserWindow) {
-    const iconPath = path.join(__dirname, 'tray-icon-24x24.png'); // Path to your tray icon image
-    this.tray = new Tray(iconPath);
-    this.tray.setImage(iconPath); // Set the monochrome tray icon
+    this.tray = new Tray(this.getTrayIcon());
 
     // Function to rebuild and set the tray context menu
     const updateTrayMenu = () => {
@@ -564,6 +567,11 @@ export class TrayService {
       if (mainWindow) {
         mainWindow.show();
       }
+    });
+
+    // Listen for theme updates (e.g., if user changes system appearance)
+    nativeTheme.on('updated', () => {
+      this.tray.setImage(this.getTrayIcon()); // Update tray icon based on the new theme
     });
   }
 }
