@@ -8,7 +8,11 @@ export class TrayService {
 
   // https://github.com/electron/electron/blob/main/docs/api/native-image.md#template-image
   static getTrayIcon() {
-    return path.join(__dirname, 'trayIconTemplate.png');
+    if (PowerService.isAwakeAllowed) {
+      return path.join(__dirname, 'trayIconEyeOpenedTemplate.png');
+    } else {
+      return path.join(__dirname, 'trayIconEyeClosedTemplate.png');
+    }
   }
 
   static createTray(mainWindow: BrowserWindow) {

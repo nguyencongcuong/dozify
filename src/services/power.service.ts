@@ -1,5 +1,6 @@
 import { powerSaveBlocker } from 'electron';
 import _ from 'lodash';
+import { TrayService } from './tray.service';
 
 interface IAllowAwakeOptions {
   isInfinity: boolean; // true when keeping Mac awake infinitely
@@ -56,6 +57,9 @@ export class PowerService {
       }, 1000);
     }
 
+    // Update tray icon
+    TrayService.tray.setImage(TrayService.getTrayIcon());
+
     // Log
     console.log(
       'Mac is now awake.',
@@ -67,7 +71,7 @@ export class PowerService {
     // Clear any previous timers if they exist
     if (this.intervalTimer) clearInterval(this.intervalTimer);
     if (this.awakeTimer) clearInterval(this.awakeTimer);
-    
+
     // Allow sleep mode
     if (this.isAwakeAllowed) {
       powerSaveBlocker.stop(this.powerSaverId);
@@ -76,5 +80,8 @@ export class PowerService {
         `Power Save Blocker ID: ${this.powerSaverId}.`,
       );
     }
+
+    // Update tray icon
+    TrayService.tray.setImage(TrayService.getTrayIcon());
   }
 }
