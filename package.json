@@ -1,8 +1,8 @@
 {
   "name": "dozify",
-  "productName": "dozify",
+  "productName": "Dozify",
   "version": "1.0.0",
-  "description": "Keep your Mac awake",
+  "description": "Keep your Mac awake, effortlessly",
   "main": ".vite/build/main.js",
   "scripts": {
     "start": "electron-forge start",

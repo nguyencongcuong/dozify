@@ -561,7 +561,7 @@ export class TrayService {
       this.tray.setContextMenu(contextMenu);
     };
 
-    this.tray.setToolTip('Dozify - Prevents Mac from sleeping');
+    this.tray.setToolTip('Dozify - Keep your Mac awake, effortlessly');
 
     // Initial setup of the tray menu
     updateTrayMenu();
