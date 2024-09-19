@@ -22,8 +22,11 @@
     "@electron-forge/plugin-vite": "^7.4.0",
     "@electron/fuses": "^1.8.0",
     "@types/lodash": "^4.17.7",
+    "@types/react": "^18.3.7",
+    "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
+    "@vitejs/plugin-react": "^4.3.1",
     "electron": "32.1.0",
     "eslint": "^8.0.1",
     "eslint-plugin-import": "^2.25.0",
@@ -40,6 +43,8 @@
   "license": "MIT",
   "dependencies": {
     "electron-squirrel-startup": "^1.0.1",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   }
 }
