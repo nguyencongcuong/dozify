@@ -9,6 +9,7 @@ import {
 import * as path from 'path';
 import { PowerService } from './power.service';
 import { TimerService } from './timer.service';
+import { WindowService } from './window.service';
 
 export class TrayService {
   public static tray: Tray | null = null;
@@ -47,6 +48,15 @@ export class TrayService {
           label: `Remaining awake time: ${PowerService.remainingTime}s`,
           enabled: false,
           visible: Boolean(PowerService.awakeTimer),
+        },
+        {
+          type: 'separator',
+        },
+        {
+          label: 'Preferences...',
+          click: () => {
+            WindowService.createWindow();
+          },
         },
         {
           type: 'separator',
