@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron';
+import { BrowserWindow } from 'electron';
 import path from 'path';
 
 export class WindowService {
@@ -9,10 +9,10 @@ export class WindowService {
     this.mainWindow = new BrowserWindow({
       width: 600,
       height: 600,
-      icon: path.join(__dirname, 'icon.png'),
+      icon: path.join(__dirname, 'icon.icns'),
       webPreferences: {
         nodeIntegration: true,
-        contextIsolation: false,
+        contextIsolation: true,
         preload: path.join(__dirname, 'preload.js'),
       },
     });
@@ -25,7 +25,9 @@ export class WindowService {
         path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`),
       );
     }
+
     // Hide icon in dock
-    app.dock.hide();
+    // app.dock.hide();
+    this.mainWindow.webContents.openDevTools();
   }
 }
