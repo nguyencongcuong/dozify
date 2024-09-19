@@ -34,6 +34,9 @@ const createWindow = () => {
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
+
+  // Hide icon in dock
+  app.dock.hide();
 };
 
 ipcMain.handle('dark-mode:toggle', () => {
