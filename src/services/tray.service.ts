@@ -1,4 +1,11 @@
-import { app, BrowserWindow, Menu, nativeTheme, Tray } from 'electron';
+import {
+  app,
+  BrowserWindow,
+  Menu,
+  nativeImage,
+  nativeTheme,
+  Tray,
+} from 'electron';
 import * as path from 'path';
 import { PowerService } from './power.service';
 import { TimerService } from './timer.service';
@@ -8,11 +15,13 @@ export class TrayService {
 
   // https://github.com/electron/electron/blob/main/docs/api/native-image.md#template-image
   static getTrayIcon() {
-    if (PowerService.isAwakeAllowed) {
-      return path.join(__dirname, 'trayIconEyeOpenedTemplate.png');
-    } else {
-      return path.join(__dirname, 'trayIconEyeClosedTemplate.png');
-    }
+    const imagePath = PowerService.isAwakeAllowed
+      ? path.join(__dirname, 'tray-icon-opened.png')
+      : path.join(__dirname, 'tray-icon-closed.png');
+    const image = nativeImage.createFromPath(imagePath);
+    const resizedImage = image.resize({ width: 24, height: 24 });
+    resizedImage.setTemplateImage(true);
+    return resizedImage;
   }
 
   static createTray(mainWindow: BrowserWindow) {
