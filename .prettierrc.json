@@ -4,5 +4,6 @@
   "useTabs": false,
   "bracketSpacing": true,
   "bracketSameLine": true,
-  "trailingComma": "all"
+  "trailingComma": "all",
+  "jsxSingleQuote": true
 }
