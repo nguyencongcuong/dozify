@@ -45,6 +45,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@heroicons/react": "^2.1.5",
     "electron-squirrel-startup": "^1.0.1",
     "lodash": "^4.17.21",
     "react": "^18.3.1",
