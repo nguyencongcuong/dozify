@@ -3,12 +3,20 @@ import { createRoot } from 'react-dom/client';
 import './index.css';
 import '@fontsource/poppins';
 import { SettingsPage } from './pages/Settings';
+import { ConfigProvider, ThemeConfig } from 'antd';
+
+const theme: ThemeConfig = {
+  token: {
+    fontSize: 12,
+    fontFamily: 'Poppins, sans-serif',
+  },
+};
 
 const App: React.FC = () => {
   return (
-    <div className={'p-2'}>
+    <ConfigProvider theme={theme}>
       <SettingsPage />
-    </div>
+    </ConfigProvider>
   );
 };
 
