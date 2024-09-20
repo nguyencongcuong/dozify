@@ -7,7 +7,7 @@ export class WindowService {
   public static async createWindow() {
     // Create the browser window.
     this.mainWindow = new BrowserWindow({
-      width: 600,
+      width: 400,
       height: 600,
       icon: path.join(__dirname, 'icon.icns'),
       webPreferences: {
@@ -15,6 +15,7 @@ export class WindowService {
         contextIsolation: true,
         preload: path.join(__dirname, 'preload.js'),
       },
+      resizable: false,
     });
 
     // and load the index.html of the app.
@@ -28,6 +29,20 @@ export class WindowService {
 
     // Hide icon in dock
     // app.dock.hide();
-    this.mainWindow.webContents.openDevTools();
+
+    this.mainWindow.webContents.closeDevTools();
+  }
+
+  public static open() {
+    if (this.mainWindow) {
+      if (this.mainWindow.isDestroyed()) {
+        // Close window will destroy mainWindow
+        this.createWindow();
+      } else {
+        this.mainWindow.show();
+      }
+    } else {
+      this.createWindow();
+    }
   }
 }

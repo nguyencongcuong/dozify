@@ -3,6 +3,7 @@
   "productName": "Dozify",
   "version": "1.0.0",
   "description": "Keep your Mac awake, effortlessly",
+  "homepage": "https://apps.cuongnc.dev/dozify",
   "main": ".vite/build/main.js",
   "scripts": {
     "start": "electron-forge start",
@@ -12,6 +13,7 @@
     "lint": "eslint --ext .ts,.tsx ."
   },
   "devDependencies": {
+    "@ant-design/icons": "^5.5.1",
     "@electron-forge/cli": "^7.4.0",
     "@electron-forge/maker-deb": "^7.4.0",
     "@electron-forge/maker-rpm": "^7.4.0",
@@ -27,14 +29,10 @@
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "@vitejs/plugin-react": "^4.3.1",
-    "autoprefixer": "^10.4.20",
-    "daisyui": "^4.12.10",
     "electron": "32.1.0",
     "eslint": "^8.0.1",
     "eslint-plugin-import": "^2.25.0",
-    "postcss": "^8.4.47",
     "prettier": "^3.3.3",
-    "tailwindcss": "^3.4.12",
     "ts-node": "^10.0.0",
     "typescript": "~4.5.4",
     "vite": "^5.0.12"
@@ -47,10 +45,13 @@
   "license": "MIT",
   "dependencies": {
     "@fontsource/poppins": "^5.1.0",
-    "@heroicons/react": "^2.1.5",
+    "antd": "^5.20.6",
     "electron-squirrel-startup": "^1.0.1",
+    "immer": "^10.1.1",
     "lodash": "^4.17.21",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "use-sync-external-store": "^1.2.2",
+    "zustand": "^5.0.0-rc.2"
   }
 }

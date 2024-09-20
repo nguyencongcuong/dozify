@@ -1,11 +1,4 @@
-import {
-  app,
-  BrowserWindow,
-  Menu,
-  nativeImage,
-  nativeTheme,
-  Tray,
-} from 'electron';
+import { app, BrowserWindow, Menu, nativeImage, Tray } from 'electron';
 import * as path from 'path';
 import { PowerService } from './power.service';
 import { TimerService } from './timer.service';
@@ -13,19 +6,31 @@ import { WindowService } from './window.service';
 
 export class TrayService {
   public static tray: Tray | null = null;
+  public static trayIconSetNo = 1;
 
   // https://github.com/electron/electron/blob/main/docs/api/native-image.md#template-image
   static getTrayIcon() {
+    const trayDir = path.join(__dirname, 'assets', 'images', 'trays');
+
     const imagePath = PowerService.isAwakeAllowed
-      ? path.join(__dirname, 'tray-icon-opened.png')
-      : path.join(__dirname, 'tray-icon-closed.png');
+      ? `${trayDir}/tray-icon-${this.trayIconSetNo}-awake.png`
+      : `${trayDir}/tray-icon-${this.trayIconSetNo}-sleep.png`;
+
+    console.log(this.getTrayIcon.name, 'imagePath', imagePath);
+
     const image = nativeImage.createFromPath(imagePath);
-    const resizedImage = image.resize({ width: 24, height: 24 });
+    const resizedImage = image.resize({ width: 16, height: 16 });
     resizedImage.setTemplateImage(true);
     return resizedImage;
   }
 
   static createTray(mainWindow: BrowserWindow) {
+    // Remove the existing tray & all listeners
+    if (this.tray) {
+      this.tray.destroy();
+      this.tray.removeAllListeners();
+    }
+
     this.tray = new Tray(this.getTrayIcon());
 
     // Function to rebuild and set the tray context menu
@@ -53,9 +58,10 @@ export class TrayService {
           type: 'separator',
         },
         {
-          label: 'Preferences...',
+          label: 'Settings...',
+          accelerator: 'Cmd+,',
           click: () => {
-            WindowService.createWindow();
+            WindowService.open();
           },
         },
         {
@@ -584,17 +590,5 @@ export class TrayService {
 
     // Initial setup of the tray menu
     updateTrayMenu();
-
-    // Handle tray icon click event
-    this.tray.on('click', () => {
-      if (mainWindow) {
-        mainWindow.show();
-      }
-    });
-
-    // Listen for theme updates (e.g., if user changes system appearance)
-    nativeTheme.on('updated', () => {
-      this.tray.setImage(this.getTrayIcon()); // Update tray icon based on the new theme
-    });
   }
 }
