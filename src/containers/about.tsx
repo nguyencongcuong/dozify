@@ -5,10 +5,12 @@ import Setting from '../components/Setting';
 import {
   CodeOutlined,
   CopyrightCircleOutlined,
+  FileProtectOutlined,
+  FileTextOutlined,
   InfoCircleOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import { Typography } from 'antd';
+import { Tooltip } from 'antd';
 
 export function About() {
   const date = new Date();
@@ -20,7 +22,7 @@ export function About() {
         <Setting.Icon>
           <InfoCircleOutlined />
         </Setting.Icon>
-        <Setting.Title>MacOS desktop app</Setting.Title>
+        <Setting.Title>Application</Setting.Title>
         <Setting.Content>
           <a
             className={'underline'}
@@ -34,10 +36,18 @@ export function About() {
 
       <Setting>
         <Setting.Icon>
+          <FileTextOutlined />
+        </Setting.Icon>
+        <Setting.Title>Description</Setting.Title>
+        <Setting.Content>{packageInfo.description}</Setting.Content>
+      </Setting>
+
+      <Setting>
+        <Setting.Icon>
           <CodeOutlined />
         </Setting.Icon>
         <Setting.Title>Version</Setting.Title>
-        <Setting.Content>{packageInfo.version}</Setting.Content>
+        <Setting.Content>v{packageInfo.version}</Setting.Content>
       </Setting>
 
       <Setting>
@@ -45,7 +55,19 @@ export function About() {
           <CopyrightCircleOutlined />
         </Setting.Icon>
         <Setting.Title>Copyright</Setting.Title>
-        <Setting.Content>{year}</Setting.Content>
+        <Setting.Content>© {year}</Setting.Content>
+      </Setting>
+
+      <Setting>
+        <Setting.Icon>
+          <FileProtectOutlined />
+        </Setting.Icon>
+        <Setting.Title>License</Setting.Title>
+        <Setting.Content>
+          <Tooltip title='Dozify is always free, with no ads or in-app purchases'>
+            <span>Freeware</span>
+          </Tooltip>
+        </Setting.Content>
       </Setting>
 
       <Setting>
@@ -55,8 +77,6 @@ export function About() {
         <Setting.Title>Creator</Setting.Title>
         <Setting.Content>{packageInfo.author.name}</Setting.Content>
       </Setting>
-
-      <Typography></Typography>
     </SettingWrapper>
   );
 }
