@@ -42,7 +42,7 @@
     "name": "Nguyen Cong Cuong",
     "email": "c.ng.devie@gmail.com"
   },
-  "license": "MIT",
+  "license": "Proprietary License",
   "dependencies": {
     "@fontsource/poppins": "^5.1.0",
     "antd": "^5.20.6",
