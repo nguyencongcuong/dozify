@@ -14,11 +14,7 @@ const Setting: SettingComponent = ({ children }) => {
 };
 
 const SettingIcon: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  return (
-    <Col span={2}>
-      <div>{children}</div>
-    </Col>
-  );
+  return <Col span={1}>{children}</Col>;
 };
 
 // Define the Setting.Title subcomponent
@@ -26,8 +22,8 @@ const SettingTitle: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   return (
-    <Col span={10}>
-      <Typography>{children}</Typography>
+    <Col span={9}>
+      <Typography.Text>{children}</Typography.Text>
     </Col>
   );
 };
@@ -36,7 +32,7 @@ const SettingContent: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   return (
-    <Col span={12}>
+    <Col span={14}>
       <Flex justify={'flex-end'}>{children}</Flex>
     </Col>
   );
