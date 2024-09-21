@@ -1,6 +1,7 @@
 import { powerSaveBlocker } from 'electron';
 import _ from 'lodash';
 import { TrayService } from './tray.service';
+import { NotificationService } from './notification.service';
 
 interface IAllowAwakeOptions {
   isInfinity: boolean; // true when keeping Mac awake infinitely
@@ -53,6 +54,7 @@ export class PowerService {
         );
         if (this.remainingTime <= 0) {
           clearInterval(this.intervalTimer);
+          NotificationService.sendNotification();
         }
         if (options.onTimerEnd) options.onTimerEnd();
       }, 1000);
@@ -76,6 +78,7 @@ export class PowerService {
     // Allow sleep mode
     if (this.isAwakeAllowed) {
       powerSaveBlocker.stop(this.powerSaverId);
+      NotificationService.sendNotification();
       console.log(
         'Mac is now allowed to sleep.',
         `Power Save Blocker ID: ${this.powerSaverId}.`,
