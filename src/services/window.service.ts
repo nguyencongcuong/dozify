@@ -42,6 +42,11 @@ export class WindowService {
     app.dock.hide();
 
     // this.mainWindow.webContents.openDevTools();
+
+    // Windows Listener
+    WindowService.mainWindow.on('minimize', () => {
+      WindowService.mainWindow.destroy();
+    });
   }
 
   public static open() {

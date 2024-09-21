@@ -43,13 +43,13 @@ let mainWindow: BrowserWindow;
   });
 
   // Send the system's theme preference when the app starts
-  mainWindow.webContents.once('did-finish-load', () => {
+  WindowService.mainWindow.webContents.once('did-finish-load', () => {
     console.log('main windows did finish load');
     WindowService.mainWindow.webContents.send(
       EVENT['appearance:system-theme'],
       nativeTheme.shouldUseDarkColors,
     );
-    mainWindow.setBackgroundColor(
+    WindowService.mainWindow.setBackgroundColor(
       nativeTheme.shouldUseDarkColors
         ? THEME.DARK.token.colorBgBase
         : THEME.LIGHT.token.colorBgBase,
@@ -58,8 +58,8 @@ let mainWindow: BrowserWindow;
 
   // Tray listener
   TrayService.tray.on('click', () => {
-    if (mainWindow) {
-      mainWindow.show();
+    if (WindowService.mainWindow) {
+      WindowService.mainWindow.show();
     }
   });
 
