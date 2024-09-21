@@ -45,7 +45,33 @@ export function Appearance() {
         <Setting.Content>
           <Select
             size={'small'}
-            value={trayIconSetNo}
+            labelInValue={false}
+            value={{
+              value: trayIconSetNo,
+              label: (
+                <Flex justify={'space-between'} align={'center'}>
+                  <img
+                    alt={'tray-icon-awake-set-' + trayIconSetNo}
+                    src={trayIconSet[Number(trayIconSetNo) - 1][0]}
+                    width={'16px'}
+                    height={'16px'}
+                    style={{
+                      filter: isDarkMode ? 'invert(1)' : 'unset',
+                    }}
+                  />
+                  <img
+                    alt={'tray-icon-sleep-set-' + trayIconSetNo}
+                    src={trayIconSet[Number(trayIconSetNo) - 1][1]}
+                    width={'16px'}
+                    height={'16px'}
+                    style={{
+                      filter: isDarkMode ? 'invert(1)' : 'unset',
+                    }}
+                  />
+                </Flex>
+              ),
+            }}
+            placeholder={'Tray icon'}
             style={{ width: 120 }}
             onChange={(setNo) => setTrayIconSetNo(setNo)}
             options={trayIconSet.map((set, index) => ({
