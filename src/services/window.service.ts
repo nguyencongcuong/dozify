@@ -1,4 +1,4 @@
-import { BrowserWindow, nativeTheme } from 'electron';
+import { app, BrowserWindow, nativeTheme } from 'electron';
 import path from 'path';
 import { THEME } from '../contants/theme';
 import { EVENT } from '../contants/event';
@@ -39,7 +39,7 @@ export class WindowService {
     );
 
     // Hide icon in dock
-    // app.dock.hide();
+    app.dock.hide();
 
     // this.mainWindow.webContents.openDevTools();
   }
