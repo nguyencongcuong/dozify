@@ -1,5 +1,7 @@
-import { BrowserWindow } from 'electron';
+import { BrowserWindow, nativeTheme } from 'electron';
 import path from 'path';
+import { THEME } from '../contants/theme';
+import { EVENT } from '../contants/event';
 
 export class WindowService {
   public static mainWindow: BrowserWindow;
@@ -16,6 +18,10 @@ export class WindowService {
         preload: path.join(__dirname, 'preload.js'),
       },
       resizable: false,
+      backgroundMaterial: 'tabbed',
+      backgroundColor: nativeTheme.shouldUseDarkColors
+        ? THEME.DARK.token.colorBgBase
+        : THEME.LIGHT.token.colorBgBase,
     });
 
     // and load the index.html of the app.
@@ -27,10 +33,15 @@ export class WindowService {
       );
     }
 
+    WindowService.mainWindow.webContents.send(
+      EVENT['appearance:system-theme'],
+      nativeTheme.shouldUseDarkColors,
+    );
+
     // Hide icon in dock
     // app.dock.hide();
 
-    this.mainWindow.webContents.closeDevTools();
+    // this.mainWindow.webContents.openDevTools();
   }
 
   public static open() {

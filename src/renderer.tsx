@@ -3,18 +3,12 @@ import { createRoot } from 'react-dom/client';
 import './index.css';
 import '@fontsource/poppins';
 import { SettingsPage } from './pages/Settings';
-import { ConfigProvider, ThemeConfig } from 'antd';
+import { ConfigProvider } from 'antd';
 import { useAppearance } from './store/appearance.store';
 
-const theme: ThemeConfig = {
-  token: {
-    fontSize: 12,
-    fontFamily: 'Poppins, sans-serif',
-  },
-};
-
 const App: React.FC = () => {
-  const { isRemainingTimeShown, trayIconSetNo } = useAppearance();
+  const { isRemainingTimeShown, trayIconSetNo, toggleDarkMode, theme } =
+    useAppearance();
 
   useEffect(() => {
     window.electronAPI.toggleRemainingTime(isRemainingTimeShown);
@@ -23,6 +17,10 @@ const App: React.FC = () => {
   useEffect(() => {
     window.electronAPI.changeTrayIcon(trayIconSetNo);
   }, [trayIconSetNo]);
+
+  useEffect(() => {
+    window.electronAPI.onThemeChange(toggleDarkMode);
+  }, []);
 
   return (
     <ConfigProvider theme={theme}>

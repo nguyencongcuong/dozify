@@ -10,7 +10,7 @@ interface SettingComponent extends React.FC<{ children: React.ReactNode }> {
 
 // Define the Setting component
 const Setting: SettingComponent = ({ children }) => {
-  return <Row>{children}</Row>;
+  return <Row style={{ marginBottom: '5px' }}>{children}</Row>;
 };
 
 const SettingIcon: React.FC<{ children: React.ReactNode }> = ({ children }) => {

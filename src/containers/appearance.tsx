@@ -23,6 +23,7 @@ export function Appearance() {
     setTrayIconSetNo,
     toggleRemainingTime,
     isRemainingTimeShown,
+    isDarkMode,
   } = useAppearance();
 
   const trayIconSet = [
@@ -56,12 +57,18 @@ export function Appearance() {
                     src={set[0]}
                     width={'16px'}
                     height={'16px'}
+                    style={{
+                      filter: isDarkMode ? 'invert(1)' : 'unset',
+                    }}
                   />
                   <img
                     alt={'tray-icon-sleep-set-' + index + 1}
                     src={set[1]}
                     width={'16px'}
                     height={'16px'}
+                    style={{
+                      filter: isDarkMode ? 'invert(1)' : 'unset',
+                    }}
                   />
                 </Flex>
               ),

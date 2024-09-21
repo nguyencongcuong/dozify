@@ -5,6 +5,7 @@ declare global {
     electronAPI: {
       changeTrayIcon: (setNo: string) => void;
       toggleRemainingTime: (isShown: boolean) => void;
+      onThemeChange: (callback: (isDark: boolean) => void) => void;
     };
   }
 }
