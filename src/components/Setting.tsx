@@ -22,7 +22,7 @@ const SettingTitle: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   return (
-    <Col span={9}>
+    <Col span={11}>
       <Typography.Text>{children}</Typography.Text>
     </Col>
   );
@@ -32,7 +32,7 @@ const SettingContent: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   return (
-    <Col span={14}>
+    <Col span={12}>
       <Flex justify={'flex-end'}>{children}</Flex>
     </Col>
   );

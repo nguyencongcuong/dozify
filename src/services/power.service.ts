@@ -13,7 +13,8 @@ export class PowerService {
   public static powerSaverId: number;
   public static awakeTimer: NodeJS.Timeout;
   public static intervalTimer: NodeJS.Timeout;
-  public static remainingTime = 0;
+  public static remainingTime: number | '∞' | '' = '';
+  public static isRemainingTimeShown = false;
 
   // Getter to dynamically check if the system is currently being kept awake
   public static get isAwakeAllowed(): boolean {
@@ -31,7 +32,7 @@ export class PowerService {
     this.powerSaverId = powerSaveBlocker.start('prevent-display-sleep');
 
     // Create timers
-    this.remainingTime = options.timer / 1000;
+    this.remainingTime = options.isInfinity ? '∞' : options.timer / 1000;
 
     if (options.onTimerStart) options.onTimerStart();
 
@@ -43,7 +44,7 @@ export class PowerService {
       }, options.timer);
 
       this.intervalTimer = setInterval(() => {
-        this.remainingTime--;
+        if (_.isNumber(this.remainingTime)) this.remainingTime--;
         // Log
         console.log(
           'Mac is now awake.',

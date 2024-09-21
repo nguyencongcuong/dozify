@@ -3,6 +3,7 @@ import * as path from 'path';
 import { PowerService } from './power.service';
 import { TimerService } from './timer.service';
 import { WindowService } from './window.service';
+import _ from 'lodash';
 
 export class TrayService {
   public static tray: Tray | null = null;
@@ -47,21 +48,6 @@ export class TrayService {
             }
             // Update the tray menu after toggling power state
             updateTrayMenu();
-          },
-        },
-        {
-          label: `Remaining awake time: ${PowerService.remainingTime}s`,
-          enabled: false,
-          visible: Boolean(PowerService.awakeTimer),
-        },
-        {
-          type: 'separator',
-        },
-        {
-          label: 'Settings...',
-          accelerator: 'Cmd+,',
-          click: () => {
-            WindowService.open();
           },
         },
         {
@@ -575,6 +561,19 @@ export class TrayService {
           ],
         },
         {
+          type: 'separator',
+        },
+        {
+          label: 'Settings...',
+          accelerator: 'Cmd+,',
+          click: () => {
+            WindowService.open();
+          },
+        },
+        {
+          type: 'separator',
+        },
+        {
           label: 'Quit',
           accelerator: 'Cmd+Q',
           click: () => {
@@ -584,6 +583,22 @@ export class TrayService {
       ]);
 
       this.tray.setContextMenu(contextMenu);
+
+      // Populate the remaining time showing next to the tray icon
+      if (PowerService.isAwakeAllowed) {
+        if (PowerService.isRemainingTimeShown) {
+          if (_.isNumber(PowerService.remainingTime)) {
+            this.tray.setTitle(
+              TimerService.secondsToTimeFormat(PowerService.remainingTime),
+              { fontType: 'monospacedDigit' },
+            );
+          } else {
+            this.tray.setTitle('∞');
+          }
+        }
+      } else {
+        this.tray.setTitle('');
+      }
     };
 
     this.tray.setToolTip('Dozify - Keep your Mac awake, effortlessly');

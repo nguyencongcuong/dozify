@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import '@fontsource/poppins';
 import { SettingsPage } from './pages/Settings';
 import { ConfigProvider, ThemeConfig } from 'antd';
+import { useAppearance } from './store/appearance.store';
 
 const theme: ThemeConfig = {
   token: {
@@ -13,6 +14,16 @@ const theme: ThemeConfig = {
 };
 
 const App: React.FC = () => {
+  const { isRemainingTimeShown, trayIconSetNo } = useAppearance();
+
+  useEffect(() => {
+    window.electronAPI.toggleRemainingTime(isRemainingTimeShown);
+  }, [isRemainingTimeShown]);
+
+  useEffect(() => {
+    window.electronAPI.changeTrayIcon(trayIconSetNo);
+  }, [trayIconSetNo]);
+
   return (
     <ConfigProvider theme={theme}>
       <SettingsPage />

@@ -13,16 +13,17 @@ import trayIcon5Sleep from '/assets/images/trays/tray-icon-5-sleep.png';
 
 import { SettingWrapper } from '../components/SettingWrapper';
 import Setting from '../components/Setting';
-import { BgColorsOutlined } from '@ant-design/icons';
-import { Flex, Select } from 'antd';
+import { BgColorsOutlined, ClockCircleOutlined } from '@ant-design/icons';
+import { Checkbox, Flex, Select } from 'antd';
 import { useAppearance } from '../store/appearance.store';
-import { shallow } from 'zustand/shallow';
 
 export function Appearance() {
-  const [trayIconSetNo, setTrayIconSetNo] = useAppearance(
-    (state) => [state.trayIconSetNo, state.setTrayIconSetNo],
-    shallow,
-  );
+  const {
+    trayIconSetNo,
+    setTrayIconSetNo,
+    toggleRemainingTime,
+    isRemainingTimeShown,
+  } = useAppearance();
 
   const trayIconSet = [
     [trayIcon1Awake, trayIcon1Sleep],
@@ -34,6 +35,7 @@ export function Appearance() {
 
   return (
     <SettingWrapper title={'Appearance'}>
+      {/*Customize menu icon*/}
       <Setting>
         <Setting.Icon>
           <BgColorsOutlined />
@@ -64,6 +66,19 @@ export function Appearance() {
                 </Flex>
               ),
             }))}
+          />
+        </Setting.Content>
+      </Setting>
+
+      <Setting>
+        <Setting.Icon>
+          <ClockCircleOutlined />
+        </Setting.Icon>
+        <Setting.Title>Show remaining time next to menu icon</Setting.Title>
+        <Setting.Content>
+          <Checkbox
+            checked={isRemainingTimeShown}
+            onChange={(event) => toggleRemainingTime(event.target.checked)}
           />
         </Setting.Content>
       </Setting>

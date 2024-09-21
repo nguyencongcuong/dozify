@@ -8,4 +8,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   system: () => ipcRenderer.invoke(EVENT['dark-mode:system']),
   changeTrayIcon: (index: number) =>
     ipcRenderer.send(EVENT['appearance:tray-icon'], index),
+  toggleRemainingTime: (isShown: boolean) => {
+    ipcRenderer.send(EVENT['appearance:remaining-time-shown'], isShown);
+  },
 });

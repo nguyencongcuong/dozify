@@ -1,7 +1,14 @@
-import { app, BrowserWindow, ipcMain, nativeTheme } from 'electron';
+import {
+  app,
+  BrowserWindow,
+  ipcMain,
+  nativeTheme,
+  powerMonitor,
+} from 'electron';
 import { TrayService } from './services/tray.service';
 import { WindowService } from './services/window.service';
 import { EVENT } from './contants/event';
+import { PowerService } from './services/power.service';
 
 let mainWindow: BrowserWindow;
 
@@ -27,6 +34,14 @@ let mainWindow: BrowserWindow;
     TrayService.trayIconSetNo = setNo;
     TrayService.createTray(mainWindow);
   });
+
+  ipcMain.on(
+    EVENT['appearance:remaining-time-shown'],
+    (_event, isShown: boolean) => {
+      PowerService.isRemainingTimeShown = isShown;
+      TrayService.createTray(mainWindow);
+    },
+  );
 
   // Listen for theme updates (e.g., if user changes system appearance)
   nativeTheme.on('updated', () => {
@@ -57,5 +72,17 @@ let mainWindow: BrowserWindow;
     if (BrowserWindow.getAllWindows().length === 0) {
       await WindowService.createWindow();
     }
+  });
+
+  app.on('ready', async () => {
+    setInterval(() => {
+      const idleTime = powerMonitor.getSystemIdleTime();
+      console.log(`System has been idle for ${idleTime} seconds`);
+
+      if (idleTime > 300) {
+        // Assuming display turns off after 5 minutes (300 seconds)
+        console.log('The display might turn off soon');
+      }
+    }, 1000); // Check every 10 seconds
   });
 })();
