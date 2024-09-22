@@ -3,14 +3,13 @@ import packageInfo from '../../package.json';
 import { SettingWrapper } from '../components/SettingWrapper';
 import Setting from '../components/Setting';
 import {
-  CodeOutlined,
-  CopyrightCircleOutlined,
-  FileProtectOutlined,
-  FileTextOutlined,
-  InfoCircleOutlined,
-  UserOutlined,
-} from '@ant-design/icons';
-import { Tooltip } from 'antd';
+  GoFile,
+  GoGitPullRequest,
+  GoInfo,
+  GoPerson,
+  GoShield,
+  GoShieldCheck,
+} from 'react-icons/go';
 
 export function About() {
   const date = new Date();
@@ -20,7 +19,7 @@ export function About() {
     <SettingWrapper title='About'>
       <Setting>
         <Setting.Icon>
-          <InfoCircleOutlined />
+          <GoInfo />
         </Setting.Icon>
         <Setting.Title>Application</Setting.Title>
         <Setting.Content>
@@ -36,7 +35,7 @@ export function About() {
 
       <Setting>
         <Setting.Icon>
-          <FileTextOutlined />
+          <GoFile />
         </Setting.Icon>
         <Setting.Title>Description</Setting.Title>
         <Setting.Content>{packageInfo.description}</Setting.Content>
@@ -44,7 +43,7 @@ export function About() {
 
       <Setting>
         <Setting.Icon>
-          <CodeOutlined />
+          <GoGitPullRequest />
         </Setting.Icon>
         <Setting.Title>Version</Setting.Title>
         <Setting.Content>v{packageInfo.version}</Setting.Content>
@@ -52,7 +51,7 @@ export function About() {
 
       <Setting>
         <Setting.Icon>
-          <CopyrightCircleOutlined />
+          <GoShield />
         </Setting.Icon>
         <Setting.Title>Copyright</Setting.Title>
         <Setting.Content>© {year}</Setting.Content>
@@ -60,19 +59,15 @@ export function About() {
 
       <Setting>
         <Setting.Icon>
-          <FileProtectOutlined />
+          <GoShieldCheck />
         </Setting.Icon>
         <Setting.Title>License</Setting.Title>
-        <Setting.Content>
-          <Tooltip title='Dozify is always free, with no ads or in-app purchases'>
-            <span>Freeware</span>
-          </Tooltip>
-        </Setting.Content>
+        <Setting.Content>Freeware</Setting.Content>
       </Setting>
 
       <Setting>
         <Setting.Icon>
-          <UserOutlined />
+          <GoPerson />
         </Setting.Icon>
         <Setting.Title>Creator</Setting.Title>
         <Setting.Content>{packageInfo.author.name}</Setting.Content>

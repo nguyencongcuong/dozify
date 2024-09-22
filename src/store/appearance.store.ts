@@ -1,14 +1,11 @@
 import { immer } from 'zustand/middleware/immer';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { createWithEqualityFn } from 'zustand/traditional';
-import { ThemeConfig } from 'antd';
-import { THEME } from '../contants/theme';
 
 interface State {
   trayIconSetNo: string;
   isRemainingTimeShown: boolean;
   isDarkMode: boolean;
-  theme: ThemeConfig;
 }
 
 interface Actions {
@@ -23,7 +20,6 @@ export const useAppearance = createWithEqualityFn(
       trayIconSetNo: '1',
       isDarkMode: false,
       isRemainingTimeShown: false,
-      theme: THEME.LIGHT,
       setTrayIconSetNo: (setNo: string) => {
         set((state) => {
           state.trayIconSetNo = setNo;
@@ -38,11 +34,6 @@ export const useAppearance = createWithEqualityFn(
         set((state) => {
           console.debug('userAppearance', 'toggleDarkMode', isDarkMode);
           state.isDarkMode = isDarkMode;
-          if (isDarkMode) {
-            state.theme = THEME.DARK;
-          } else {
-            state.theme = THEME.LIGHT;
-          }
         });
       },
     })),

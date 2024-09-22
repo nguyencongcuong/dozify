@@ -1,6 +1,5 @@
 import { app, BrowserWindow, nativeTheme } from 'electron';
 import path from 'path';
-import { THEME } from '../contants/theme';
 import { EVENT } from '../contants/event';
 
 export class WindowService {
@@ -19,9 +18,6 @@ export class WindowService {
       },
       resizable: false,
       backgroundMaterial: 'tabbed',
-      backgroundColor: nativeTheme.shouldUseDarkColors
-        ? THEME.DARK.token.colorBgBase
-        : THEME.LIGHT.token.colorBgBase,
     });
 
     // and load the index.html of the app.

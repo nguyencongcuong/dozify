@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
-import '@fontsource/poppins';
 import { SettingsPage } from './pages/Settings';
-import { ConfigProvider } from 'antd';
 import { useAppearance } from './store/appearance.store';
 
 const App: React.FC = () => {
@@ -22,11 +20,7 @@ const App: React.FC = () => {
     window.electronAPI.onThemeChange(toggleDarkMode);
   }, []);
 
-  return (
-    <ConfigProvider theme={theme}>
-      <SettingsPage />
-    </ConfigProvider>
-  );
+  return <SettingsPage />;
 };
 
 const container = document.getElementById('root');
