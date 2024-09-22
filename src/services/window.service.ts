@@ -9,8 +9,8 @@ export class WindowService {
   public static async createWindow() {
     // Create the browser window.
     this.mainWindow = new BrowserWindow({
-      width: 576,
-      height: 400,
+      width: 400,
+      height: 600,
       icon: path.join(__dirname, 'icon.icns'),
       webPreferences: {
         nodeIntegration: true,
