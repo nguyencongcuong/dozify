@@ -3,7 +3,6 @@ import packageInfo from '../../package.json';
 import { SettingWrapper } from '../components/SettingWrapper';
 import Setting from '../components/Setting';
 import {
-  GoFile,
   GoGitPullRequest,
   GoInfo,
   GoPerson,
@@ -31,14 +30,6 @@ export function About() {
             {packageInfo.productName}
           </a>
         </Setting.Content>
-      </Setting>
-
-      <Setting>
-        <Setting.Icon>
-          <GoFile />
-        </Setting.Icon>
-        <Setting.Title>Description</Setting.Title>
-        <Setting.Content>{packageInfo.description}</Setting.Content>
       </Setting>
 
       <Setting>
