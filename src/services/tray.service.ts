@@ -1,9 +1,10 @@
-import { app, BrowserWindow, Menu, nativeImage, Tray } from 'electron';
+import { app, BrowserWindow, Menu, nativeImage, shell, Tray } from 'electron';
 import * as path from 'path';
 import { PowerService } from './power.service';
 import { TimerService } from './timer.service';
 import { WindowService } from './window.service';
 import _ from 'lodash';
+import packageInfo from '../../package.json';
 
 export class TrayService {
   public static tray: Tray | null = null;
@@ -569,6 +570,17 @@ export class TrayService {
           click: () => {
             WindowService.open();
           },
+        },
+        {
+          type: 'separator',
+        },
+        {
+          label: 'Leave a feedback',
+          click: async () => await shell.openExternal(packageInfo.homepage),
+        },
+        {
+          label: 'Report a bug',
+          click: async () => await shell.openExternal(packageInfo.homepage),
         },
         {
           type: 'separator',
