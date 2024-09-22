@@ -1,8 +1,4 @@
 import type { ForgeConfig } from '@electron-forge/shared-types';
-import { MakerSquirrel } from '@electron-forge/maker-squirrel';
-import { MakerZIP } from '@electron-forge/maker-zip';
-import { MakerDeb } from '@electron-forge/maker-deb';
-import { MakerRpm } from '@electron-forge/maker-rpm';
 import { VitePlugin } from '@electron-forge/plugin-vite';
 import { FusesPlugin } from '@electron-forge/plugin-fuses';
 import { FuseV1Options, FuseVersion } from '@electron/fuses';
@@ -11,21 +7,18 @@ import MakerDMG from '@electron-forge/maker-dmg';
 import packageInfo from './package.json';
 
 const config: ForgeConfig = {
+  // https://electron.github.io/packager/main/interfaces/Options.html#appCategoryType
   packagerConfig: {
     asar: true,
     icon: path.join(__dirname, 'public', 'icon'),
+    name: packageInfo.productName,
+    appVersion: packageInfo.version,
+    appCategoryType: 'public.app-category.productivity', // https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/LaunchServicesKeys.html#//apple_ref/doc/uid/TP40009250-SW8
   },
-  rebuildConfig: {},
-  makers: [
-    new MakerSquirrel({}),
-    new MakerZIP({}, ['darwin']),
-    new MakerDMG({
-      name: `${packageInfo.name}-${packageInfo.version}-mac-arm64`,
-      appPath: '',
-    }),
-    new MakerRpm({}),
-    new MakerDeb({}),
-  ],
+  rebuildConfig: {
+    force: true,
+  },
+  makers: [new MakerDMG()],
   plugins: [
     new VitePlugin({
       // `build` can specify multiple entry builds, which can be Main process, Preload scripts, Worker process, etc.
