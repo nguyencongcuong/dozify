@@ -13,17 +13,17 @@ import trayIcon5Sleep from '/assets/images/trays/tray-icon-5-sleep.png';
 
 import { SettingWrapper } from '../components/SettingWrapper';
 import Setting from '../components/Setting';
-import { BgColorsOutlined, ClockCircleOutlined } from '@ant-design/icons';
-import { Checkbox, Flex, Select } from 'antd';
 import { useAppearance } from '../store/appearance.store';
+import { GoChevronDown, GoClock, GoKebabHorizontal } from 'react-icons/go';
+import clsx from 'clsx';
 
 export function Appearance() {
+  const [isChangeMenuSelected, setIsChangeMenuSelected] = React.useState(false);
   const {
     trayIconSetNo,
     setTrayIconSetNo,
     toggleRemainingTime,
     isRemainingTimeShown,
-    isDarkMode,
   } = useAppearance();
 
   const trayIconSet = [
@@ -39,77 +39,102 @@ export function Appearance() {
       {/*Customize menu icon*/}
       <Setting>
         <Setting.Icon>
-          <BgColorsOutlined />
+          <GoKebabHorizontal />
         </Setting.Icon>
-        <Setting.Title>Customize menu icon</Setting.Title>
+        <Setting.Title>Change menu icon</Setting.Title>
         <Setting.Content>
-          <Select
-            size={'small'}
-            labelInValue={false}
-            value={{
-              value: trayIconSetNo,
-              label: (
-                <Flex justify={'space-between'} align={'center'}>
-                  <img
-                    alt={'tray-icon-awake-set-' + trayIconSetNo}
-                    src={trayIconSet[Number(trayIconSetNo) - 1][0]}
-                    width={'16px'}
-                    height={'16px'}
-                    style={{
-                      filter: isDarkMode ? 'invert(1)' : 'unset',
-                    }}
-                  />
-                  <img
-                    alt={'tray-icon-sleep-set-' + trayIconSetNo}
-                    src={trayIconSet[Number(trayIconSetNo) - 1][1]}
-                    width={'16px'}
-                    height={'16px'}
-                    style={{
-                      filter: isDarkMode ? 'invert(1)' : 'unset',
-                    }}
-                  />
-                </Flex>
-              ),
-            }}
-            placeholder={'Tray icon'}
-            style={{ width: 120 }}
-            onChange={(setNo) => setTrayIconSetNo(setNo)}
-            options={trayIconSet.map((set, index) => ({
-              value: index + 1,
-              label: (
-                <Flex justify={'space-between'} align={'center'}>
-                  <img
-                    alt={'tray-icon-awake-set-' + index + 1}
-                    src={set[0]}
-                    width={'16px'}
-                    height={'16px'}
-                    style={{
-                      filter: isDarkMode ? 'invert(1)' : 'unset',
-                    }}
-                  />
-                  <img
-                    alt={'tray-icon-sleep-set-' + index + 1}
-                    src={set[1]}
-                    width={'16px'}
-                    height={'16px'}
-                    style={{
-                      filter: isDarkMode ? 'invert(1)' : 'unset',
-                    }}
-                  />
-                </Flex>
-              ),
-            }))}
-          />
+          <div className='relative inline-block text-left'>
+            <div
+              className={clsx([
+                'border border-gray-200 rounded',
+                'flex items-center justify-between gap-2',
+                'p-2',
+                'w-24',
+              ])}
+              onClick={() => setIsChangeMenuSelected(!isChangeMenuSelected)}>
+              <div
+                className={clsx([
+                  'flex items-center justify-between',
+                  'cursor-pointer',
+                  'w-full',
+                ])}>
+                <img
+                  className={clsx('dark:invert')}
+                  alt={'tray-icon-awake-set-' + trayIconSetNo}
+                  src={trayIconSet[Number(trayIconSetNo) - 1][0]}
+                  width={'16px'}
+                  height={'16px'}
+                />
+                <img
+                  className={clsx('dark:invert')}
+                  alt={'tray-icon-sleep-set-' + trayIconSetNo}
+                  src={trayIconSet[Number(trayIconSetNo) - 1][1]}
+                  width={'16px'}
+                  height={'16px'}
+                />
+              </div>
+              <GoChevronDown />
+            </div>
+
+            <div
+              className={clsx([
+                isChangeMenuSelected ? '' : 'hidden',
+                'origin-top-right absolute right-0',
+                'mt-2 w-24 rounded-md',
+                'shadow-lg',
+                'ring-1 ring-black ring-opacity-5 focus:outline-none',
+              ])}>
+              {trayIconSet.map((set, index) => {
+                return (
+                  <div
+                    className={clsx([
+                      'flex items-center justify-between',
+                      'bg-stone-50 dark:bg-stone-800',
+                      'hover:bg-stone-500 duration-150 transition-all',
+                      'p-2',
+                      'cursor-pointer',
+                    ])}
+                    key={index}
+                    onClick={() => {
+                      setTrayIconSetNo(String(index + 1));
+                      setIsChangeMenuSelected(false);
+                    }}>
+                    <img
+                      className={clsx('dark:invert')}
+                      alt={'tray-icon-awake-set-' + index + 1}
+                      src={set[0]}
+                      width={'16px'}
+                      height={'16px'}
+                    />
+                    <img
+                      className={clsx('dark:invert')}
+                      alt={'tray-icon-sleep-set-' + index + 1}
+                      src={set[1]}
+                      width={'16px'}
+                      height={'16px'}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </Setting.Content>
       </Setting>
 
       <Setting>
         <Setting.Icon>
-          <ClockCircleOutlined />
+          <GoClock />
         </Setting.Icon>
-        <Setting.Title>Show remaining time next to menu icon</Setting.Title>
+        <Setting.Title>Show countdown timer</Setting.Title>
         <Setting.Content>
-          <Checkbox
+          <input
+            className={clsx([
+              'text-yellow-600',
+              'focus:ring-amber-500',
+              'checked:bg-yellow-500',
+              'hover:bg-amber-200',
+            ])}
+            type='checkbox'
             checked={isRemainingTimeShown}
             onChange={(event) => toggleRemainingTime(event.target.checked)}
           />

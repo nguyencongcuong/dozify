@@ -3,7 +3,6 @@ import { TrayService } from './services/tray.service';
 import { WindowService } from './services/window.service';
 import { EVENT } from './contants/event';
 import { PowerService } from './services/power.service';
-import { THEME } from './contants/theme';
 
 let mainWindow: BrowserWindow;
 
@@ -34,11 +33,6 @@ let mainWindow: BrowserWindow;
       EVENT['appearance:system-theme'],
       nativeTheme.shouldUseDarkColors,
     );
-    WindowService.mainWindow.setBackgroundColor(
-      nativeTheme.shouldUseDarkColors
-        ? THEME.DARK.token.colorBgBase
-        : THEME.LIGHT.token.colorBgBase,
-    );
     TrayService.tray.setImage(TrayService.getTrayIcon()); // Update tray icon based on the new theme
   });
 
@@ -48,11 +42,6 @@ let mainWindow: BrowserWindow;
     WindowService.mainWindow.webContents.send(
       EVENT['appearance:system-theme'],
       nativeTheme.shouldUseDarkColors,
-    );
-    WindowService.mainWindow.setBackgroundColor(
-      nativeTheme.shouldUseDarkColors
-        ? THEME.DARK.token.colorBgBase
-        : THEME.LIGHT.token.colorBgBase,
     );
   });
 

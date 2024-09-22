@@ -1,13 +1,13 @@
 import React from 'react';
-import { Space } from 'antd';
 import { About } from '../containers/about';
 import { Appearance } from '../containers/appearance';
+import clsx from 'clsx';
 
 export function SettingsPage() {
   return (
-    <Space direction='vertical' style={{ display: 'flex' }}>
+    <div className={clsx(['flex flex-col gap-4 p-2'])}>
       <Appearance />
       <About />
-    </Space>
+    </div>
   );
 }

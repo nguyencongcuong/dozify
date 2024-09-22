@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Flex, Row, Typography } from 'antd';
+import clsx from 'clsx';
 
 // Define the Setting component interface to include static subcomponents
 interface SettingComponent extends React.FC<{ children: React.ReactNode }> {
@@ -10,11 +10,31 @@ interface SettingComponent extends React.FC<{ children: React.ReactNode }> {
 
 // Define the Setting component
 const Setting: SettingComponent = ({ children }) => {
-  return <Row style={{ marginBottom: '5px' }}>{children}</Row>;
+  return (
+    <div
+      className={clsx([
+        'grid',
+        'grid-cols-12',
+        'border border-stone-200 dark:border-stone-500',
+        'rounded',
+        'my-2 p-2',
+      ])}>
+      {children}
+    </div>
+  );
 };
 
 const SettingIcon: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  return <Col span={1}>{children}</Col>;
+  return (
+    <div
+      className={clsx([
+        'col-span-1',
+        'dark:text-stone-100',
+        'flex items-center',
+      ])}>
+      {children}
+    </div>
+  );
 };
 
 // Define the Setting.Title subcomponent
@@ -22,9 +42,9 @@ const SettingTitle: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   return (
-    <Col span={11}>
-      <Typography.Text>{children}</Typography.Text>
-    </Col>
+    <div className={clsx(['col-span-6', 'flex items-center'])}>
+      <div className={clsx(['dark:text-stone-100'])}>{children}</div>
+    </div>
   );
 };
 
@@ -32,9 +52,11 @@ const SettingContent: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   return (
-    <Col span={12}>
-      <Flex justify={'flex-end'}>{children}</Flex>
-    </Col>
+    <div className={'col-span-5'}>
+      <div className={clsx(['text-right', 'dark:text-stone-100'])}>
+        {children}
+      </div>
+    </div>
   );
 };
 
