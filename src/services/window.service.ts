@@ -29,7 +29,7 @@ export class WindowService {
       );
     }
 
-    WindowService.mainWindow.webContents.send(
+    this.mainWindow.webContents.send(
       EVENT['appearance:system-theme'],
       nativeTheme.shouldUseDarkColors,
     );
@@ -41,7 +41,7 @@ export class WindowService {
 
     // Windows Listener
     WindowService.mainWindow.on('minimize', () => {
-      WindowService.mainWindow.destroy();
+      WindowService.mainWindow.hide();
     });
   }
 
