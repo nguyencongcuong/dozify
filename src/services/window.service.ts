@@ -18,6 +18,7 @@ export class WindowService {
       },
       resizable: false,
       backgroundMaterial: 'tabbed',
+      show: false,
     });
 
     // and load the index.html of the app.
