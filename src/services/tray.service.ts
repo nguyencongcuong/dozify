@@ -25,7 +25,9 @@ export class TrayService {
   }
 
   static getMenuIcon(setNo: number) {
-    const imagePath = `${this.trayDir}/tray-icon-${setNo}-awake.png`;
+    const imagePath = PowerService.isAwakeAllowed
+      ? `${this.trayDir}/tray-icon-${setNo}-awake.png`
+      : `${this.trayDir}/tray-icon-${setNo}-sleep.png`;
     const image = nativeImage.createFromPath(imagePath);
     return image.resize({ width: 16, height: 16 });
   }
@@ -580,35 +582,45 @@ export class TrayService {
           label: 'Customize menu icon',
           submenu: [
             {
+              type: 'checkbox',
               label: '',
+              checked: this.trayIconSetNo == 1,
               icon: this.getMenuIcon(1),
               click: () => {
                 this.setMenuIcon(1);
               },
             },
             {
+              type: 'checkbox',
               label: '',
+              checked: this.trayIconSetNo == 2,
               icon: this.getMenuIcon(2),
               click: () => {
                 this.setMenuIcon(2);
               },
             },
             {
+              type: 'checkbox',
               label: '',
+              checked: this.trayIconSetNo == 3,
               icon: this.getMenuIcon(3),
               click: () => {
                 this.setMenuIcon(3);
               },
             },
             {
+              type: 'checkbox',
               label: '',
+              checked: this.trayIconSetNo == 4,
               icon: this.getMenuIcon(4),
               click: () => {
                 this.setMenuIcon(4);
               },
             },
             {
+              type: 'checkbox',
               label: '',
+              checked: this.trayIconSetNo == 5,
               icon: this.getMenuIcon(5),
               click: () => {
                 this.setMenuIcon(5);
