@@ -50,7 +50,7 @@ export class TrayService {
     const updateTrayMenu = () => {
       const contextMenu = Menu.buildFromTemplate([
         {
-          label: PowerService.isAwakeAllowed ? 'Allow sleep' : 'Allow awake',
+          label: PowerService.isAwakeAllowed ? 'Allow sleep' : 'Keep awake',
           accelerator: 'Cmd+W',
           click: () => {
             if (PowerService.isAwakeAllowed) {
@@ -61,6 +61,13 @@ export class TrayService {
             // Update the tray menu after toggling power state
             updateTrayMenu();
           },
+        },
+        {
+          label: `Awake mode: ${PowerService.isAwakeAllowed ? 'ON' : 'OFF'}`,
+          toolTip: PowerService.isAwakeAllowed
+            ? 'Your Mac is staying awake'
+            : 'Your Mac will sleep on normal schedule',
+          enabled: false,
         },
         {
           type: 'separator',
