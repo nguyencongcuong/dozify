@@ -575,6 +575,19 @@ export class TrayService {
           type: 'separator',
         },
         {
+          label: 'Show timer in awake mode',
+          checked: PowerService.isRemainingTimeShown,
+          type: 'checkbox',
+          click: () => {
+            PowerService.updateIsRemainingTimeShown(
+              !PowerService.isRemainingTimeShown,
+            );
+          },
+        },
+        {
+          type: 'separator',
+        },
+        {
           label: 'Leave a feedback',
           click: async () => await shell.openExternal(packageInfo.homepage),
         },

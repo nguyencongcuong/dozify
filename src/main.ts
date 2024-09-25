@@ -15,8 +15,7 @@ import { PowerService } from './services/power.service';
   ipcMain.on(
     EVENT['appearance:remaining-time-shown'],
     (_event, isShown: boolean) => {
-      PowerService.isRemainingTimeShown = isShown;
-      TrayService.createTray();
+      PowerService.updateIsRemainingTimeShown(isShown);
     },
   );
 
