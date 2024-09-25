@@ -88,4 +88,9 @@ export class PowerService {
     // Update tray icon
     TrayService.tray.setImage(TrayService.getTrayIcon());
   }
+
+  static updateIsRemainingTimeShown(bool: boolean) {
+    this.isRemainingTimeShown = bool;
+    TrayService.createTray();
+  }
 }
