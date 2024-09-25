@@ -9,14 +9,13 @@ import packageInfo from '../../package.json';
 export class TrayService {
   public static tray: Tray | null = null;
   public static trayIconSetNo = 1;
+  public static trayDir = path.join(__dirname, 'assets', 'images', 'trays');
 
   // https://github.com/electron/electron/blob/main/docs/api/native-image.md#template-image
   static getTrayIcon() {
-    const trayDir = path.join(__dirname, 'assets', 'images', 'trays');
-
     const imagePath = PowerService.isAwakeAllowed
-      ? `${trayDir}/tray-icon-${this.trayIconSetNo}-awake.png`
-      : `${trayDir}/tray-icon-${this.trayIconSetNo}-sleep.png`;
+      ? `${this.trayDir}/tray-icon-${this.trayIconSetNo}-awake.png`
+      : `${this.trayDir}/tray-icon-${this.trayIconSetNo}-sleep.png`;
 
     console.log(this.getTrayIcon.name, 'imagePath', imagePath);
 
@@ -24,6 +23,17 @@ export class TrayService {
     const resizedImage = image.resize({ width: 16, height: 16 });
     resizedImage.setTemplateImage(true);
     return resizedImage;
+  }
+
+  static getMenuIcon(setNo: number) {
+    const imagePath = `${this.trayDir}/tray-icon-${setNo}-awake.png`;
+    const image = nativeImage.createFromPath(imagePath);
+    return image.resize({ width: 16, height: 16 });
+  }
+
+  static setMenuIcon(setNo: number) {
+    this.trayIconSetNo = setNo;
+    this.createTray();
   }
 
   static createTray() {
@@ -574,6 +584,47 @@ export class TrayService {
         {
           type: 'separator',
         },
+        {
+          label: 'Customize menu icon',
+          submenu: [
+            {
+              label: '',
+              icon: this.getMenuIcon(1),
+              click: () => {
+                this.setMenuIcon(1);
+              },
+            },
+            {
+              label: '',
+              icon: this.getMenuIcon(2),
+              click: () => {
+                this.setMenuIcon(2);
+              },
+            },
+            {
+              label: '',
+              icon: this.getMenuIcon(3),
+              click: () => {
+                this.setMenuIcon(3);
+              },
+            },
+            {
+              label: '',
+              icon: this.getMenuIcon(4),
+              click: () => {
+                this.setMenuIcon(4);
+              },
+            },
+            {
+              label: '',
+              icon: this.getMenuIcon(5),
+              click: () => {
+                this.setMenuIcon(5);
+              },
+            },
+          ],
+        },
+        
         {
           label: 'Show timer in awake mode',
           checked: PowerService.isRemainingTimeShown,
