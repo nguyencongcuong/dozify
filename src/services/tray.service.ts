@@ -2,7 +2,6 @@ import { app, Menu, nativeImage, shell, Tray } from 'electron';
 import * as path from 'path';
 import { PowerService } from './power.service';
 import { TimerService } from './timer.service';
-import { WindowService } from './window.service';
 import _ from 'lodash';
 import packageInfo from '../../package.json';
 
@@ -573,13 +572,6 @@ export class TrayService {
         },
         {
           type: 'separator',
-        },
-        {
-          label: 'Settings...',
-          accelerator: 'Cmd+,',
-          click: () => {
-            WindowService.open();
-          },
         },
         {
           type: 'separator',
