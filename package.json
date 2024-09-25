@@ -1,7 +1,7 @@
 {
   "name": "dozify",
   "productName": "Dozify",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Keep your Mac awake, effortlessly",
   "homepage": "https://cuongnc.dev/dozify/",
   "main": ".vite/build/main.js",
