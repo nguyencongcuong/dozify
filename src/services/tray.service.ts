@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu, nativeImage, shell, Tray } from 'electron';
+import { app, Menu, nativeImage, shell, Tray } from 'electron';
 import * as path from 'path';
 import { PowerService } from './power.service';
 import { TimerService } from './timer.service';
@@ -26,7 +26,7 @@ export class TrayService {
     return resizedImage;
   }
 
-  static createTray(mainWindow: BrowserWindow) {
+  static createTray() {
     // Remove the existing tray & all listeners
     if (this.tray) {
       this.tray.destroy();

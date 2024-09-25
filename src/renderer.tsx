@@ -5,7 +5,7 @@ import { SettingsPage } from './pages/Settings';
 import { useAppearance } from './store/appearance.store';
 
 const App: React.FC = () => {
-  const { isRemainingTimeShown, trayIconSetNo, toggleDarkMode, theme } =
+  const { isRemainingTimeShown, trayIconSetNo, toggleDarkMode } =
     useAppearance();
 
   useEffect(() => {

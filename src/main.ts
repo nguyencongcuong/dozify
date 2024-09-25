@@ -4,35 +4,37 @@ import { WindowService } from './services/window.service';
 import { EVENT } from './contants/event';
 import { PowerService } from './services/power.service';
 
-let mainWindow: BrowserWindow;
-
 (async function () {
   // One-way communication
   ipcMain.on(EVENT['appearance:tray-icon'], (_event, setNo: number) => {
     console.log('ipcMain.changeTrayIcon', setNo);
     TrayService.trayIconSetNo = setNo;
-    TrayService.createTray(mainWindow);
+    TrayService.createTray();
   });
 
   ipcMain.on(
     EVENT['appearance:remaining-time-shown'],
     (_event, isShown: boolean) => {
       PowerService.isRemainingTimeShown = isShown;
-      TrayService.createTray(mainWindow);
+      TrayService.createTray();
     },
   );
 
   // Create window and tray after app initialization
   await app.whenReady();
   await WindowService.createWindow();
-  TrayService.createTray(mainWindow);
+  TrayService.createTray();
 
   // Listen for theme updates (e.g., if user changes system appearance)
   nativeTheme.on('updated', () => {
-    WindowService.mainWindow.webContents.send(
-      EVENT['appearance:system-theme'],
-      nativeTheme.shouldUseDarkColors,
-    );
+    // Only trigger when the main window is not destroyed
+    if (!WindowService.mainWindow.isDestroyed()) {
+      WindowService.mainWindow.webContents.send(
+        EVENT['appearance:system-theme'],
+        nativeTheme.shouldUseDarkColors,
+      );
+    }
+
     TrayService.tray.setImage(TrayService.getTrayIcon()); // Update tray icon based on the new theme
   });
 
