@@ -624,7 +624,7 @@ export class TrayService {
             },
           ],
         },
-        
+
         {
           label: 'Show timer in awake mode',
           checked: PowerService.isRemainingTimeShown,
@@ -639,17 +639,36 @@ export class TrayService {
           type: 'separator',
         },
         {
-          label: 'Leave a feedback',
-          click: async () => await shell.openExternal(packageInfo.homepage),
+          type: 'separator',
         },
         {
-          label: 'Report a bug',
-          click: async () => await shell.openExternal(packageInfo.homepage),
+          role: 'about',
+          label: 'About',
+          submenu: [
+            {
+              label: `Dozify (v${packageInfo.version}) © ${new Date().getFullYear()}`,
+            },
+            {
+              label: `Keep your macOS awake, effortlessly`,
+            },
+            {
+              label: `Developed by ${packageInfo.author.name}`,
+            },
+            {
+              type: 'separator',
+            },
+            {
+              label: `Open homepage...`,
+              toolTip: 'Leave feedbacks / Report bugs',
+              click: async () => await shell.openExternal(packageInfo.homepage),
+            },
+          ],
         },
         {
           type: 'separator',
         },
         {
+          role: 'quit',
           label: 'Quit',
           accelerator: 'Cmd+Q',
           click: () => {
